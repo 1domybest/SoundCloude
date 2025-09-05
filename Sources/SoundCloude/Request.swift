@@ -30,6 +30,7 @@ extension SoundCloud {
             )
             
             case myUser
+            case myTracks(_ limit: Int)
             case myLikedTracks(_ limit: Int)
             case myFollowingsRecentlyPosted(_ limit: Int)
             case myLikedPlaylists
@@ -76,6 +77,10 @@ extension SoundCloud {
         
         static func myUser() -> Request<User> {
             .init(api: .myUser)
+        }
+        
+        static func myTracks(_ limit: Int = 100) -> Request<Page<Track>> {
+            .init(api: .myTracks(limit))
         }
         
         static func myLikedTracks(_ limit: Int = 100) -> Request<Page<Track>> {
@@ -209,6 +214,7 @@ extension SoundCloud.Request {
         case .refreshAccessToken: "oauth/token"
         
         case .myUser: "me"
+        case .myTracks: "me/tracks"
         case .myLikedTracks: "me/likes/tracks"
         case .myFollowingsRecentlyPosted: "me/followings/tracks"
         case .myLikedPlaylists: "me/likes/playlists"
@@ -234,7 +240,13 @@ extension SoundCloud.Request {
     var queryParameters: [String : String]? {
         
         switch api {
-                        
+            
+        case let .myTracks(limit): [
+            "limit" : "\(limit)",
+            "access" : "playable",
+            "linked_partitioning" : "true"
+        ]
+            
         case let .myLikedTracks(limit): [
             "limit" : "\(limit)",
             "access" : "playable",
