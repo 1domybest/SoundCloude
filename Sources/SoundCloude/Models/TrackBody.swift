@@ -14,12 +14,12 @@ public struct TrackBody: Codable, Identifiable {
     public let bpm: Int?
     public let commentCount: Int?
     public let commentable: Bool?
-    public let createdAt: String
+    public let createdAt: String?
     public let description: String?
     public let downloadCount: Int?
     public let downloadUrl: String?
     public let downloadable: Bool?
-    public let duration: Int
+    public let duration: Int?
     public let embeddableBy: String?
     public let favoritingsCount: Int?
     public let genre: String?
@@ -28,7 +28,7 @@ public struct TrackBody: Codable, Identifiable {
     public let keySignature: String?
     public let kind: String?
     public let labelName: String?
-    public let license: String
+    public let license: String?
     public let permalinkUrl: String?
     public let playbackCount: Int?
     public let purchaseTitle: String?
@@ -39,16 +39,16 @@ public struct TrackBody: Codable, Identifiable {
     public let releaseYear: Int?
     public let repostsCount: Int?
     public let secretUri: String?
-    public let sharing: String
+    public let sharing: String?
     public let streamUrl: String?
     public let streamable: Bool?
     public let tagList: String?
-    public let title: String
-    public let uri: String
+    public let title: String?
+    public let uri: String?
     public let userFavorite: Bool?
     public let userPlaybackCount: Int?
-    public let waveformUrl: String
-    public let access: String
+    public let waveformUrl: String?
+    public let access: String?
 
     // 🔹 JSON에는 있는데 빠져있던 필드들
     public let policy: String?
