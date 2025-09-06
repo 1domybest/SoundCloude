@@ -8,52 +8,52 @@
 import Foundation
 
 public struct TrackBody: Codable, Identifiable {
-    public let id: Int
-    public let artworkUrl: String?
-    public let availableCountryCodes: [String]?
-    public let bpm: Int?
-    public let commentCount: Int?
-    public let commentable: Bool?
-    public let createdAt: String?
-    public let description: String?
-    public let downloadCount: Int?
-    public let downloadUrl: String?
-    public let downloadable: Bool?
-    public let duration: Int?
-    public let embeddableBy: String?
-    public let favoritingsCount: Int?
-    public let genre: String?
-    public let urn: String?
-    public let isrc: String?
-    public let keySignature: String?
-    public let kind: String?
-    public let labelName: String?
-    public let license: String?
-    public let permalinkUrl: String?
-    public let playbackCount: Int?
-    public let purchaseTitle: String?
-    public let purchaseUrl: String?
-    public let release: String?
-    public let releaseDay: Int?
-    public let releaseMonth: Int?
-    public let releaseYear: Int?
-    public let repostsCount: Int?
-    public let secretUri: String?
-    public let sharing: String?
-    public let streamUrl: String?
-    public let streamable: Bool?
-    public let tagList: String?
-    public let title: String?
-    public let uri: String?
-    public let userFavorite: Bool?
-    public let userPlaybackCount: Int?
-    public let waveformUrl: String?
-    public let access: String?
+    public var id: Int
+    public var artworkUrl: String?
+    public var availableCountryCodes: [String]?
+    public var bpm: Int?
+    public var commentCount: Int?
+    public var commentable: Bool?
+    public var createdAt: String?
+    public var description: String?
+    public var downloadCount: Int?
+    public var downloadUrl: String?
+    public var downloadable: Bool?
+    public var duration: Int?
+    public var embeddableBy: String?
+    public var favoritingsCount: Int?
+    public var genre: String?
+    public var urn: String?
+    public var isrc: String?
+    public var keySignature: String?
+    public var kind: String?
+    public var labelName: String?
+    public var license: String?
+    public var permalinkUrl: String?
+    public var playbackCount: Int?
+    public var purchaseTitle: String?
+    public var purchaseUrl: String?
+    public var release: String?
+    public var releaseDay: Int?
+    public var releaseMonth: Int?
+    public var releaseYear: Int?
+    public var repostsCount: Int?
+    public var secretUri: String?
+    public var sharing: String?
+    public var streamUrl: String?
+    public var streamable: Bool?
+    public var tagList: String?
+    public var title: String?
+    public var uri: String?
+    public var userFavorite: Bool?
+    public var userPlaybackCount: Int?
+    public var waveformUrl: String?
+    public var access: String?
 
-    // 🔹 JSON에는 있는데 빠져있던 필드들
-    public let policy: String?
-    public let monetizationModel: String?
-    public let metadataArtist: String?
+    
+    public var policy: String?
+    public var monetizationModel: String?
+    public var metadataArtist: String?
 
     private enum CodingKeys: String, CodingKey {
         case artworkUrl = "artwork_url"
