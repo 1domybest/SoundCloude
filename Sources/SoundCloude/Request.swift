@@ -411,14 +411,14 @@ extension SoundCloud.Request {
         // Map only fields that exist on your Track model.
         // Safely add non-nil values; adjust property names if they differ.
         trackDict["title"] = trackBody.title
-        trackDict["permalink"] = trackBody.permalink_url
+        trackDict["permalink"] = trackBody.permalinkUrl
         trackDict["sharing"] = trackBody.sharing
-        trackDict["embeddable_by"] = trackBody.embeddable_by
-        trackDict["purchase_url"] = trackBody.purchase_url
+        trackDict["embeddable_by"] = trackBody.embeddableBy
+        trackDict["purchase_url"] = trackBody.purchaseUrl
         trackDict["description"] = trackBody.description
         trackDict["genre"] = trackBody.genre
-        trackDict["tag_list"] = trackBody.tag_list
-        trackDict["label_name"] = trackBody.label_name
+        trackDict["tag_list"] = trackBody.tagList
+        trackDict["label_name"] = trackBody.labelName
         trackDict["release"] = trackBody.release
         trackDict["release_date"] = trackBody.releaseDate
         trackDict["streamable"] = trackBody.streamable
