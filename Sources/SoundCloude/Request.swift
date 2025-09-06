@@ -31,7 +31,7 @@ extension SoundCloud {
             
             case myUser
             case getTrack(id: Int)
-            case updateTrack(track: Track)
+            case updateTrack(trackBody: TrackBody)
             case myTracks(_ limit: Int)
             case myLikedTracks(_ limit: Int)
             case myFollowingsRecentlyPosted(_ limit: Int)
@@ -81,8 +81,8 @@ extension SoundCloud {
             .init(api: .myUser)
         }
         
-        static func updateTrack(_ track: Track) -> Request<TrackBody> {
-            .init(api: .updateTrack(track: track))
+        static func updateTrack(_ trackBody: TrackBody) -> Request<TrackBody> {
+            .init(api: .updateTrack(trackBody: trackBody))
         }
         
         static func myTracks(_ limit: Int = 100) -> Request<Page<Track>> {
@@ -202,9 +202,9 @@ extension SoundCloud.Request {
         }
         
         switch api {
-        case .updateTrack(let track):
+        case .updateTrack(let trackBody):
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            if let data = makeTrackUpdateJSON(from: track) {
+            if let data = makeTrackUpdateJSON(from: trackBody) {
                 request.httpBody = data
             }
         default:
@@ -405,27 +405,27 @@ extension SoundCloud.Request {
         }
     }
     
-    private func makeTrackUpdateJSON(from track: Track) -> Data? {
+    private func makeTrackUpdateJSON(from trackBody: TrackBody) -> Data? {
         var trackDict: [String: Any] = [:]
 
         // Map only fields that exist on your Track model.
         // Safely add non-nil values; adjust property names if they differ.
-        trackDict["title"] = track.title
-        trackDict["permalink"] = track.permalink
-        trackDict["sharing"] = track.sharing
-        trackDict["embeddable_by"] = track.embeddableBy
-        trackDict["purchase_url"] = track.purchaseUrl
-        trackDict["description"] = track.description
-        trackDict["genre"] = track.genre
-        trackDict["tag_list"] = track.tagList
-        trackDict["label_name"] = track.labelName
-        trackDict["release"] = track.release
-        trackDict["release_date"] = track.release
-        trackDict["streamable"] = track.streamable
-        trackDict["downloadable"] = "\(track.releaseYear)-\(track.releaseMonth)-\(track.releaseDay)"
-        trackDict["license"] = track.license
-        trackDict["commentable"] = track.commentable
-        trackDict["isrc"] = track.isrc
+        trackDict["title"] = trackBody.title
+        trackDict["permalink"] = trackBody.permalinkUrl
+        trackDict["sharing"] = trackBody.sharing
+        trackDict["embeddable_by"] = trackBody.embeddableBy
+        trackDict["purchase_url"] = trackBody.purchaseUrl
+        trackDict["description"] = trackBody.description
+        trackDict["genre"] = trackBody.genre
+        trackDict["tag_list"] = trackBody.tagList
+        trackDict["label_name"] = trackBody.labelName
+        trackDict["release"] = trackBody.release
+        trackDict["release_date"] = trackBody.releaseDate
+        trackDict["streamable"] = trackBody.streamable
+        trackDict["downloadable"] = trackBody.downloadable
+        trackDict["license"] = trackBody.license
+        trackDict["commentable"] = trackBody.commentable
+        trackDict["isrc"] = trackBody.isrc
 
         // Remove nils
         let cleaned = trackDict.compactMapValues { $0 }

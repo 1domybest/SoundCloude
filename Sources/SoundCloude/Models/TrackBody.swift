@@ -9,93 +9,93 @@ import Foundation
 
 public struct TrackBody: Codable, Identifiable {
     public let id: Int
-    public let createdAt: String
-    public let duration: Int
+    public let artworkUrl: String?
+    public let availableCountryCodes: [String]?
+    public let bpm: Int?
     public let commentCount: Int?
     public let commentable: Bool?
-    public let sharing: String
-    public let tagList: String
-    public let streamable: Bool?
-    public let genre: String?
-    public let title: String
+    public let createdAt: String
     public let description: String?
-    public let license: String
-    public let uri: String
-    public let user: User
-    public let permalinkUrl: String
-    public let artworkUrl: String?
-    public var streamUrl: String?
-    public let downloadUrl: String?
-    public let waveformUrl: String
-    public let availableCountryCodes: [String]?
-    public var userFavorite: Bool
-    public let userPlaybackCount: Int
-    public let playbackCount: Int?
-    public let favoritingsCount: Int?
-    public let repostsCount: Int?
-    public let access: String
-    
-    // JSON에 추가된 필드들
-    public let bpm: Int?
     public let downloadCount: Int?
+    public let downloadUrl: String?
+    public let downloadable: Bool?
+    public let duration: Int
     public let embeddableBy: String?
+    public let favoritingsCount: Int?
+    public let genre: String?
+    public let urn: String?
     public let isrc: String?
     public let keySignature: String?
     public let kind: String?
     public let labelName: String?
-    public let permalink: String?
+    public let license: String
+    public let permalinkUrl: String?
+    public let playbackCount: Int?
     public let purchaseTitle: String?
     public let purchaseUrl: String?
     public let release: String?
     public let releaseDay: Int?
     public let releaseMonth: Int?
     public let releaseYear: Int?
+    public let repostsCount: Int?
     public let secretUri: String?
-    public let urn: String?
+    public let sharing: String
+    public let streamUrl: String?
+    public let streamable: Bool?
+    public let tagList: String?
+    public let title: String
+    public let uri: String
+    public let userFavorite: Bool?
+    public let userPlaybackCount: Int?
+    public let waveformUrl: String
+    public let access: String
 
     private enum CodingKeys: String, CodingKey {
-        case id
-        case createdAt = "created_at"
-        case duration
+        case artworkUrl = "artwork_url"
+        case availableCountryCodes = "available_country_codes"
+        case bpm
         case commentCount = "comment_count"
         case commentable
-        case sharing
-        case tagList = "tag_list"
-        case streamable
-        case genre
-        case title
+        case createdAt = "created_at"
         case description
-        case license
-        case uri
-        case user
-        case permalinkUrl = "permalink_url"
-        case artworkUrl = "artwork_url"
-        case streamUrl = "stream_url"
-        case downloadUrl = "download_url"
-        case waveformUrl = "waveform_url"
-        case availableCountryCodes = "available_country_codes"
-        case userFavorite = "user_favorite"
-        case userPlaybackCount = "user_playback_count"
-        case playbackCount = "playback_count"
-        case favoritingsCount = "favoritings_count"
-        case repostsCount = "reposts_count"
-        case access
-        case bpm
         case downloadCount = "download_count"
+        case downloadUrl = "download_url"
+        case downloadable
+        case duration
         case embeddableBy = "embeddable_by"
+        case favoritingsCount = "favoritings_count"
+        case genre
+        case id
+        case urn
         case isrc
         case keySignature = "key_signature"
         case kind
         case labelName = "label_name"
-        case permalink
+        case license
+        case permalinkUrl = "permalink_url"
+        case playbackCount = "playback_count"
         case purchaseTitle = "purchase_title"
         case purchaseUrl = "purchase_url"
         case release
         case releaseDay = "release_day"
         case releaseMonth = "release_month"
         case releaseYear = "release_year"
+        case repostsCount = "reposts_count"
         case secretUri = "secret_uri"
-        case urn
+        case sharing
+        case streamUrl = "stream_url"
+        case streamable
+        case tagList = "tag_list"
+        case title
+        case uri
+        case userFavorite = "user_favorite"
+        case userPlaybackCount = "user_playback_count"
+        case waveformUrl = "waveform_url"
+        case access
+    }
+    
+    var releaseDate: String {
+        return "\(String(describing: self.releaseYear))-\(String(describing: self.releaseMonth))-\(String(describing: self.releaseDay))"
     }
 }
 
