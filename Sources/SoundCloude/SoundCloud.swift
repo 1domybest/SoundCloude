@@ -264,10 +264,32 @@ private extension SoundCloud {
         guard !statusCode.errorOccurred else {
             throw Error.network(statusCode)
         }
-        guard let decodedObject = try? decoder.decode(T.self, from: data) else {
+//        guard let decodedObject = try? decoder.decode(T.self, from: data) else {
+//            throw Error.decoding
+//        }
+        do {
+            let decodedObject = try decoder.decode(T.self, from: data)
+            return decodedObject
+        } catch let decodingError as DecodingError {
+            switch decodingError {
+            case .typeMismatch(let type, let context):
+                print("❌ Type mismatch:", type, context.debugDescription, context.codingPath)
+            case .valueNotFound(let type, let context):
+                print("❌ Value not found:", type, context.debugDescription, context.codingPath)
+            case .keyNotFound(let key, let context):
+                print("❌ Key not found:", key, context.debugDescription, context.codingPath)
+            case .dataCorrupted(let context):
+                print("❌ Data corrupted:", context.debugDescription, context.codingPath)
+            @unknown default:
+                print("❌ Unknown decoding error:", decodingError)
+            }
+            throw Error.decoding
+        } catch {
+            print("❌ Unexpected error:", error)
             throw Error.decoding
         }
-        return decodedObject
+        
+//        return decodedObject
     }
     
     func authorized<T>(_ scRequest: Request<T>) async throws -> URLRequest {
