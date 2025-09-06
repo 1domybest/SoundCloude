@@ -9,55 +9,101 @@ import Foundation
 
 public struct TrackBody: Codable, Identifiable {
     public var id: Int
-    public var artwork_url: String?
-    public var available_country_codes: [String]?
+    public var artworkUrl: String?
+    public var availableCountryCodes: [String]?
     public var bpm: Int?
-    public var comment_count: Int?
+    public var commentCount: Int?
     public var commentable: Bool?
-    public var created_at: String?
+    public var createdAt: String?
     public var description: String?
-    public var download_count: Int?
-    public var download_url: String?
+    public var downloadCount: Int?
+    public var downloadUrl: String?
     public var downloadable: Bool?
     public var duration: Int?
-    public var embeddable_by: String?
-    public var favoritings_count: Int?
+    public var embeddableBy: String?
+    public var favoritingsCount: Int?
     public var genre: String?
     public var urn: String?
     public var isrc: String?
-    public var key_signature: String?
+    public var keySignature: String?
     public var kind: String?
-    public var label_name: String?
+    public var labelName: String?
     public var license: String?
-    public var permalink_url: String?
-    public var playback_count: Int?
-    public var purchase_title: String?
-    public var purchase_url: String?
+    public var permalinkUrl: String?
+    public var playbackCount: Int?
+    public var purchaseTitle: String?
+    public var purchaseUrl: String?
     public var release: String?
-    public var release_day: Int?
-    public var release_month: Int?
-    public var release_year: Int?
-    public var reposts_count: Int?
-    public var secret_uri: String?
+    public var releaseDay: Int?
+    public var releaseMonth: Int?
+    public var releaseYear: Int?
+    public var repostsCount: Int?
+    public var secretUri: String?
     public var sharing: String?
-    public var stream_url: String?
+    public var streamUrl: String?
     public var streamable: Bool?
-    public var tag_list: String?
+    public var tagList: String?
     public var title: String?
     public var uri: String?
-    public var user_favorite: Bool?
-    public var user_playback_count: Int?
-    public var waveform_url: String?
+    public var userFavorite: Bool?
+    public var userPlaybackCount: Int?
+    public var waveformUrl: String?
     public var access: String?
 
-    
     public var policy: String?
-    public var monetization_model: String?
-    public var metadata_artist: String?
+    public var monetizationModel: String?
+    public var metadataArtist: String?
+
+//    private enum CodingKeys: String, CodingKey {
+//        case artworkUrl = "artwork_url"
+//        case availableCountryCodes = "available_country_codes"
+//        case bpm
+//        case commentCount = "comment_count"
+//        case commentable
+//        case createdAt = "created_at"
+//        case description
+//        case downloadCount = "download_count"
+//        case downloadUrl = "download_url"
+//        case downloadable
+//        case duration
+//        case embeddableBy = "embeddable_by"
+//        case favoritingsCount = "favoritings_count"
+//        case genre
+//        case id
+//        case urn
+//        case isrc
+//        case keySignature = "key_signature"
+//        case kind
+//        case labelName = "label_name"
+//        case license
+//        case permalinkUrl = "permalink_url"
+//        case playbackCount = "playback_count"
+//        case purchaseTitle = "purchase_title"
+//        case purchaseUrl = "purchase_url"
+//        case release
+//        case releaseDay = "release_day"
+//        case releaseMonth = "release_month"
+//        case releaseYear = "release_year"
+//        case repostsCount = "reposts_count"
+//        case secretUri = "secret_uri"
+//        case sharing
+//        case streamUrl = "stream_url"
+//        case streamable
+//        case tagList = "tag_list"
+//        case title
+//        case uri
+//        case userFavorite = "user_favorite"
+//        case userPlaybackCount = "user_playback_count"
+//        case waveformUrl = "waveform_url"
+//        case access
+//        case policy
+//        case monetizationModel = "monetization_model"
+//        case metadataArtist = "metadata_artist"
+//    }
 
     // 🔹 보기 좋은 releaseDate 조립
     public var releaseDate: String? {
-        guard let y = release_year, let m = release_month, let d = release_day else { return nil }
+        guard let y = releaseYear, let m = releaseMonth, let d = releaseDay else { return nil }
         return String(format: "%04d-%02d-%02d", y, m, d)
     }
 }
