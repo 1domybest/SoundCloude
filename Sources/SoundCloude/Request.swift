@@ -81,7 +81,7 @@ extension SoundCloud {
             .init(api: .myUser)
         }
         
-        static func updateTrack(_ track: Track) -> Request<Track> {
+        static func updateTrack(_ track: Track) -> Request<TrackBody> {
             .init(api: .updateTrack(track: track))
         }
         
@@ -129,7 +129,7 @@ extension SoundCloud {
             .init(api: .usersImFollowing)
         }
         
-        static func getTrack(_ id: Int) -> Request<Track> {
+        static func getTrack(_ id: Int) -> Request<TrackBody> {
             .init(api: .likeTrack(id))
         }
         
