@@ -1,13 +1,4 @@
-//
-//  File.swift
-//  SoundCloude
-//
-//  Created by 온석태 on 9/6/25.
-//
-
-import Foundation
-
-public struct TrackBody: Codable, Identifiable {
+public struct TrackBody: Codable, Identifiable, Hashable {
     public var id: Int
     public var artworkUrl: String?
     public var availableCountryCodes: [String]?
@@ -50,69 +41,17 @@ public struct TrackBody: Codable, Identifiable {
     public var waveformUrl: String?
     public var access: String?
 
-    
+    // 추가 필드 (응답에 있음)
     public var policy: String?
     public var monetizationModel: String?
     public var metadataArtist: String?
 
-    private enum CodingKeys: String, CodingKey {
-        case artworkUrl = "artwork_url"
-        case availableCountryCodes = "available_country_codes"
-        case bpm
-        case commentCount = "comment_count"
-        case commentable
-        case createdAt = "created_at"
-        case description
-        case downloadCount = "download_count"
-        case downloadUrl = "download_url"
-        case downloadable
-        case duration
-        case embeddableBy = "embeddable_by"
-        case favoritingsCount = "favoritings_count"
-        case genre
-        case id
-        case urn
-        case isrc
-        case keySignature = "key_signature"
-        case kind
-        case labelName = "label_name"
-        case license
-        case permalinkUrl = "permalink_url"
-        case playbackCount = "playback_count"
-        case purchaseTitle = "purchase_title"
-        case purchaseUrl = "purchase_url"
-        case release
-        case releaseDay = "release_day"
-        case releaseMonth = "release_month"
-        case releaseYear = "release_year"
-        case repostsCount = "reposts_count"
-        case secretUri = "secret_uri"
-        case sharing
-        case streamUrl = "stream_url"
-        case streamable
-        case tagList = "tag_list"
-        case title
-        case uri
-        case userFavorite = "user_favorite"
-        case userPlaybackCount = "user_playback_count"
-        case waveformUrl = "waveform_url"
-        case access
-        case policy
-        case monetizationModel = "monetization_model"
-        case metadataArtist = "metadata_artist"
-    }
-
-    // 🔹 보기 좋은 releaseDate 조립
     public var releaseDate: String? {
         guard let y = releaseYear, let m = releaseMonth, let d = releaseDay else { return nil }
         return String(format: "%04d-%02d-%02d", y, m, d)
     }
-}
 
-// Equatable/Hashable 동일
-extension TrackBody: Equatable {
-    public static func ==(lhs: TrackBody, rhs: TrackBody) -> Bool { lhs.id == rhs.id }
-}
-extension TrackBody: Hashable {
+    // Equatable/Hashable는 id 기준이면 충분
+    public static func == (lhs: TrackBody, rhs: TrackBody) -> Bool { lhs.id == rhs.id }
     public func hash(into hasher: inout Hasher) { hasher.combine(id) }
 }
