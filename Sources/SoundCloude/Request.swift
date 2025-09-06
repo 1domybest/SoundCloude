@@ -246,7 +246,7 @@ extension SoundCloud.Request {
         case .relatedTracks(let id, _): "tracks/\(id)/related"
         case .streamInfoForTrack(let id): "tracks/\(id)/streams"
         case .usersImFollowing: "me/followings"
-        case .getTrack(let id): "/tracks/\(id)"
+        case .getTrack(let id): "tracks/\(id)"
         case .likeTrack(let id), .unlikeTrack(let id): "likes/tracks/\(id)"
         case .likePlaylist(let id), .unlikePlaylist(let id): "likes/playlists/\(id)"
         case .followUser(let id), .unfollowUser(let id): "me/followings/\(id)"
