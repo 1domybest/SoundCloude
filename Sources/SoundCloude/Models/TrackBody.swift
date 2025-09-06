@@ -50,6 +50,11 @@ public struct TrackBody: Codable, Identifiable {
     public let waveformUrl: String
     public let access: String
 
+    // 🔹 JSON에는 있는데 빠져있던 필드들
+    public let policy: String?
+    public let monetizationModel: String?
+    public let metadataArtist: String?
+
     private enum CodingKeys: String, CodingKey {
         case artworkUrl = "artwork_url"
         case availableCountryCodes = "available_country_codes"
@@ -92,21 +97,22 @@ public struct TrackBody: Codable, Identifiable {
         case userPlaybackCount = "user_playback_count"
         case waveformUrl = "waveform_url"
         case access
+        case policy
+        case monetizationModel = "monetization_model"
+        case metadataArtist = "metadata_artist"
     }
-    
-    var releaseDate: String {
-        return "\(String(describing: self.releaseYear))-\(String(describing: self.releaseMonth))-\(String(describing: self.releaseDay))"
+
+    // 🔹 보기 좋은 releaseDate 조립
+    public var releaseDate: String? {
+        guard let y = releaseYear, let m = releaseMonth, let d = releaseDay else { return nil }
+        return String(format: "%04d-%02d-%02d", y, m, d)
     }
 }
 
+// Equatable/Hashable 동일
 extension TrackBody: Equatable {
-    public static func ==(lhs: TrackBody, rhs: TrackBody) -> Bool {
-        lhs.id == rhs.id
-    }
+    public static func ==(lhs: TrackBody, rhs: TrackBody) -> Bool { lhs.id == rhs.id }
 }
-
 extension TrackBody: Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
+    public func hash(into hasher: inout Hasher) { hasher.combine(id) }
 }
