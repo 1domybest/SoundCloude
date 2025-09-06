@@ -30,6 +30,8 @@ extension SoundCloud {
             )
             
             case myUser
+            case getTrack(id: Int)
+            case updateTrack(track: Track)
             case myTracks(_ limit: Int)
             case myLikedTracks(_ limit: Int)
             case myFollowingsRecentlyPosted(_ limit: Int)
@@ -79,6 +81,10 @@ extension SoundCloud {
             .init(api: .myUser)
         }
         
+        static func updateTrack(_ track: Track) -> Request<Track> {
+            .init(api: .updateTrack(track: track))
+        }
+        
         static func myTracks(_ limit: Int = 100) -> Request<Page<Track>> {
             .init(api: .myTracks(limit))
         }
@@ -121,6 +127,10 @@ extension SoundCloud {
         
         static func usersImFollowing() -> Request<Page<User>> {
             .init(api: .usersImFollowing)
+        }
+        
+        static func getTrack(_ id: Int) -> Request<Track> {
+            .init(api: .likeTrack(id))
         }
         
         static func likeTrack(_ id: Int) -> Request<Status> {
@@ -190,6 +200,16 @@ extension SoundCloud.Request {
             urlComponents.queryItems = body
             request.httpBody = urlComponents.query?.data(using: .utf8)
         }
+        
+        switch api {
+        case .updateTrack(let track):
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            if let data = makeTrackUpdateJSON(from: track) {
+                request.httpBody = data
+            }
+        default:
+            break
+        }
 
         request.httpMethod = httpMethod
         return request
@@ -214,6 +234,7 @@ extension SoundCloud.Request {
         case .refreshAccessToken: "oauth/token"
         
         case .myUser: "me"
+        case .updateTrack(let track): "tracks/\(track.id)"
         case .myTracks: "me/tracks"
         case .myLikedTracks: "me/likes/tracks"
         case .myFollowingsRecentlyPosted: "me/followings/tracks"
@@ -225,6 +246,7 @@ extension SoundCloud.Request {
         case .relatedTracks(let id, _): "tracks/\(id)/related"
         case .streamInfoForTrack(let id): "tracks/\(id)/streams"
         case .usersImFollowing: "me/followings"
+        case .getTrack(let id): "/tracks/\(id)"
         case .likeTrack(let id), .unlikeTrack(let id): "likes/tracks/\(id)"
         case .likePlaylist(let id), .unlikePlaylist(let id): "likes/playlists/\(id)"
         case .followUser(let id), .unfollowUser(let id): "me/followings/\(id)"
@@ -307,7 +329,7 @@ extension SoundCloud.Request {
             "linked_partitioning" : "true"
         ]
             
-        default: 
+        default:
             nil
         }
     }
@@ -355,7 +377,10 @@ extension SoundCloud.Request {
         case .followUser:
             "PUT"
         
-        default: 
+        case .updateTrack:
+            "PUT"
+        
+        default:
             "GET"
         }
     }
@@ -378,5 +403,34 @@ extension SoundCloud.Request {
             case .nextPage: true
             default: false
         }
+    }
+    
+    private func makeTrackUpdateJSON(from track: Track) -> Data? {
+        var trackDict: [String: Any] = [:]
+
+        // Map only fields that exist on your Track model.
+        // Safely add non-nil values; adjust property names if they differ.
+        trackDict["title"] = track.title
+        trackDict["permalink"] = track.permalink
+        trackDict["sharing"] = track.sharing
+        trackDict["embeddable_by"] = track.embeddableBy
+        trackDict["purchase_url"] = track.purchaseUrl
+        trackDict["description"] = track.description
+        trackDict["genre"] = track.genre
+        trackDict["tag_list"] = track.tagList
+        trackDict["label_name"] = track.labelName
+        trackDict["release"] = track.release
+        trackDict["release_date"] = track.release
+        trackDict["streamable"] = track.streamable
+        trackDict["downloadable"] = "\(track.releaseYear)-\(track.releaseMonth)-\(track.releaseDay)"
+        trackDict["license"] = track.license
+        trackDict["commentable"] = track.commentable
+        trackDict["isrc"] = track.isrc
+
+        // Remove nils
+        let cleaned = trackDict.compactMapValues { $0 }
+
+        let payload: [String: Any] = ["track": cleaned]
+        return try? JSONSerialization.data(withJSONObject: payload, options: [])
     }
 }

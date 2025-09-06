@@ -95,6 +95,14 @@ public extension SoundCloud {
         try await get(.myUser())
     }
     
+    func getTrack(_ id: Int) async throws -> Track {
+        try await get(.getTrack(id))
+    }
+    
+    func updateTrack(_ track: Track) async throws -> Track {
+        try await get(.updateTrack(track))
+    }
+    
     func getUsersImFollowing() async throws -> Page<User> {
         try await get(.usersImFollowing())
     }
