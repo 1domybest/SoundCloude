@@ -248,11 +248,16 @@ private extension SoundCloud {
         guard let (data, response) = try? await urlSession.data(for: request) else {
             throw Error.noInternet // Is no internet the only case here?
         }
+        // 2) HTTP 검사
+        guard let http = response as? HTTPURLResponse else { throw Error.noInternet }
+        NetworkLogger.log(request: request, response: http, data: data)
+        
         let statusCodeInt = (response as! HTTPURLResponse).statusCode
         let statusCode = StatusCode(rawValue: statusCodeInt) ?? .unknown
         guard statusCode != .unauthorized else {
             throw Error.userNotAuthorized
         }
+        
         guard statusCode != .tooManyRequests else {
             throw Error.tooManyRequests
         }
