@@ -9,11 +9,9 @@ import Foundation
 
 public struct Track: Codable, Identifiable {
     public let id: Int
-    public let urn: String?
     public let createdAt: String
     public let duration: Int
     public let commentCount: Int?
-    public let commentable: Bool?
     public let sharing: String
     public let tagList: String
     public let streamable: Bool?
@@ -36,70 +34,7 @@ public struct Track: Codable, Identifiable {
     public let repostsCount: Int?
     public let access: String // playable / preview / blocked
     
-    // Additional SoundCloud fields
-    public let bpm: Int?
-    public let downloadCount: Int?
-    public let embeddableBy: String?
-    public let isrc: String?
-    public let keySignature: String?
-    public let kind: String?
-    public let labelName: String?
-    public let permalink: String?
-    public let purchaseTitle: String?
-    public let purchaseUrl: String?
-    public let release: String?
-    public let releaseDay: Int?
-    public let releaseMonth: Int?
-    public let releaseYear: Int?
-    public let secretUri: String?
-    
     public var localFileUrl: String? = nil // For downloaded tracks
-    
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case urn
-        case createdAt = "created_at"
-        case duration
-        case commentCount = "comment_count"
-        case commentable
-        case sharing
-        case tagList = "tag_list"
-        case streamable
-        case genre
-        case title
-        case description
-        case license
-        case uri
-        case user
-        case permalinkUrl = "permalink_url"
-        case artworkUrl = "artwork_url"
-        case streamUrl = "stream_url"
-        case downloadUrl = "download_url"
-        case waveformUrl = "waveform_url"
-        case availableCountryCodes = "available_country_codes"
-        case userFavorite = "user_favorite"
-        case userPlaybackCount = "user_playback_count"
-        case playbackCount = "playback_count"
-        case favoritingsCount = "favoritings_count"
-        case repostsCount = "reposts_count"
-        case access
-        case bpm
-        case downloadCount = "download_count"
-        case embeddableBy = "embeddable_by"
-        case isrc
-        case keySignature = "key_signature"
-        case kind
-        case labelName = "label_name"
-        case permalink
-        case purchaseTitle = "purchase_title"
-        case purchaseUrl = "purchase_url"
-        case release
-        case releaseDay = "release_day"
-        case releaseMonth = "release_month"
-        case releaseYear = "release_year"
-        case secretUri = "secret_uri"
-        // localFileUrl is not mapped from JSON
-    }
 }
 
 public extension Track {
