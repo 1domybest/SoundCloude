@@ -130,7 +130,7 @@ extension SoundCloud {
         }
         
         static func getTrack(_ id: Int) -> Request<TrackBody> {
-            .init(api: .likeTrack(id))
+            .init(api: .getTrack(id: id))
         }
         
         static func likeTrack(_ id: Int) -> Request<Status> {
