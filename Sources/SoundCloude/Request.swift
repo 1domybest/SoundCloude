@@ -405,13 +405,23 @@ extension SoundCloud.Request {
         }
     }
     
+    private func makePermalink(from title: String?) -> String? {
+        guard let title else { return nil }
+        let lowercased = title.lowercased()
+        let allowed = lowercased
+            .replacingOccurrences(of: " ", with: "-")
+            .components(separatedBy: CharacterSet.alphanumerics.union(CharacterSet(charactersIn: "-_")).inverted)
+            .joined()
+        return allowed
+    }
+    
     private func makeTrackUpdateJSON(from trackBody: TrackBody) -> Data? {
         var trackDict: [String: Any] = [:]
 
         // Map only fields that exist on your Track model.
         // Safely add non-nil values; adjust property names if they differ.
         trackDict["title"] = trackBody.title
-        trackDict["permalink"] = trackBody.permalinkUrl
+        trackDict["permalink"] = makePermalink(from: trackBody.title)
         trackDict["sharing"] = trackBody.sharing
         trackDict["embeddable_by"] = trackBody.embeddableBy
         trackDict["purchase_url"] = trackBody.purchaseUrl
