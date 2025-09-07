@@ -85,7 +85,7 @@ extension SoundCloud {
             .init(api: .updateTrack(trackBody: trackBody))
         }
         
-        static func myTracks(_ limit: Int = 100) -> Request<Page<Track>> {
+        static func myTracks(_ limit: Int = 100) -> Request<Page<TrackBody>> {
             .init(api: .myTracks(limit))
         }
         

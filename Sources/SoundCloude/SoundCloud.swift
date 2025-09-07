@@ -107,7 +107,7 @@ public extension SoundCloud {
         try await get(.usersImFollowing())
     }
     
-    func getMyTracks() async throws -> Page<Track> {
+    func getMyTracks() async throws -> Page<TrackBody> {
         try await get(.myTracks())
     }
     
