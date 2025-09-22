@@ -1,5 +1,4 @@
 import Foundation
-import SwiftUICore
 import SwiftUI
 
 /// 네트워크 로거 (DEBUG 빌드에서만 시끄럽게 출력)
